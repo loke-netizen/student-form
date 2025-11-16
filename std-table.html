@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input, select, button {
+            font-size: 1.5rem;}
+            select{
+                width: 100%;
+            }
+            button{
+                background-color: rgb(255, 1, 1);border: none;border-radius: 4px;
+            }
+    </style>
+</head>
+
+<body style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <h1>STUDENT FORM</h1>
+    <form style="border: 4px solid black; padding: 10px; font-size:1.8rem; ">
+
+        <table border="4">
+            <tr>
+                <td><label for="name">NAME</label></td>
+                <td><input type="text" id="name"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="age">AGE</label></td>
+                <td><input type="number" id="age"></td>
+            </tr>
+            <tr>
+                <td><label >GENDER</label></td>
+                <td><input type="radio" name="gender" id="male" value="Male"> <label for="male">Male </label>
+               <input type="radio" name="gender" id="female" value="Female"> <label for="female"> Female</label></td>
+            </tr>
+           
+            <tr>
+                <td><label for="email">E-Mail</label></td>
+                <td><input type="email" id="email" required></td>
+            </tr>
+            
+            <tr>
+                <td><label for="course">COURSE</label></td>
+                <td><select id="course">
+                        <option value="python">PYTHON</option>
+                        <option value="javascript">JAVASCRIPT</option>
+                        <option value="html">HTML</option>
+                    </select></td>                      
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <button type="button" onclick="add()" style="width: 90%;height: 90%;background-color: aquamarine;">SAVE</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <h2>RESULT</h2>
+
+    <form style="border: 4px solid black; padding: 10px; font-size:1.9rem;text-align: center;">
+        <table border="2" id="resultTable">
+            <tr>
+                <td>NAME</td>
+                <td>AGE</td>
+                <td>E-MAIL</td>
+                <td>COURSE</td>
+                <td>GENDER</td>
+                <td>ACTION</td>
+            </tr>
+
+        </table>
+    </form>
+    <script>
+        function add() {
+            
+            var name = document.querySelector("#name")
+            var age = document.querySelector("#age")
+            var email = document.querySelector("#email")
+            var course = document.querySelector("#course")
+            var table = document.getElementById("resultTable");
+            var newrow = document.createElement("tr")
+            var gender = document.querySelector("input[name='gender']:checked");
+           
+
+            if (name.value === "" || age.value === "" || email.value === "" || !gender) {
+                alert("Please fill all the fields")
+                return
+            }
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value.trim())) {
+                alert("Please enter a valid email address");
+                return;
+            }
+            newrow.innerHTML = `<td>${name.value}</td> <td>${age.value}</td> <td>${email.value}</td> <td>${course.value}</td> <td>${gender.value}</td><td><button onclick="del(event)">Delete</button></td>`
+            table.append(newrow)
+            name.value = ""
+            age.value = ""
+            email.value = ""
+         
+      
+        }
+        function del(event) {
+            event.target.parentElement.parentElement.remove()
+        }
+    </script>
+</body>
+
+</html>
